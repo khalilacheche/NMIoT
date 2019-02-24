@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import socket
 import time
-from Window import Window
+from WindowManager import Window
 from threading import Thread
 from timeM import *
 
@@ -36,19 +36,27 @@ def getTimeList():
                             times.append((isApprox and "~" or "")+content)
     return times
 
+
+########### MAIN LOOP #############
 class mainloop (Thread):
     def __init__(self,win):
         Thread.__init__(self)
         self.win = win #keeping a reference to the window object so we can pass info to it
     def run(self):
         times=[]
+        lastCheckTime = "";
         while True:
             if is_connected():
                 times=getTimeList()
+                lastCheckTime = datetime.now().strftime("%H:%M")
                 self.win.updateTimeList(tlManager.formatTl(times))
                 time.sleep(5)
             else :
-                print("Cannot execute, no internet connection")
+                print("offline")
+                if times != []:
+                    times=tlManager.updateTlOffline(times,lastCheckTime)
+                    lastCheckTime=datetime.now().strftime("%H:%M")
+                    self.win.updateTimeList(tlManager.formatTl(times))
                 time.sleep(5)
 
 ########### MAIN THREAD #############
