@@ -43,10 +43,10 @@ class tlManager:
     @staticmethod
     def getTColor(t):
         if(timeManip.getETA(t)>5):
-            return"green"
+            return"#2ecc71"#GREEN
         if timeManip.getETA(t)>3:
-            return "orange"
-        return "red"
+            return "#e67e22"#ORANGE
+        return "#e74c3c"#RED
     @staticmethod
     def updateTlOffline(tl,lastCheckTime):
         newTl =[]
