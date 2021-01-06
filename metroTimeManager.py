@@ -19,7 +19,12 @@ def is_connected(): #Checking for internet connection state
 
 def getTimeList():
     #Sending the request and storing the response in resp object
-    resp = requests.get("https://www.t-l.ch/tl-live-mobile/line_detail.php?from=horaire&id=3377704015495524&line=11821953316814882&id_stop=2533279085549588&id_direction=11821953316814882&lineName=m1", verify=False)
+    now = datetime.now()
+    date = now.strftime("%Y-%m-%d")
+    date = date.replace("-","%2F")
+    h = now.strftime("%H")
+    m = now.strftime("%M")
+    resp = requests.get("https://www.t-l.ch/tl-live-mobile/line_detail.php?jour="+date+"&heure="+h+"&minute="+m+"&id=3377704015495524&line=11821953316814882&id_stop=2533279085549588&id_direction=11821953316814882&lineName=m1", verify=False)
     soup = BeautifulSoup(resp.text, 'html.parser')
     tags = soup.find_all('div'); #Getting all the div tags
     times =[]
