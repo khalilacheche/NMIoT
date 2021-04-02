@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import *
 from tkinter.filedialog import *
 from PIL import ImageTk, Image
 from threading import Thread
