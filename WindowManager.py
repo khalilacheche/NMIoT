@@ -22,9 +22,9 @@ class Window ():
         ####Creating the frame that will hold the time list
         tlframe = Frame(self.root,borderwidth=1)
         tlframe.pack()
-        tlframe.place(height=500,width=400,x=900,y=300)
+        tlframe.place(height=450,width=400,x=850,y=200)
         ####Creating the time and date labels
-        self.localTimeLabel= Label(self.root, text="",font=("Product Sans", 200),fg="#424242", bg="#e8e8e6")
+        self.localTimeLabel= Label(self.root, text="",font=("Product Sans", 130),fg="#424242", bg="#e8e8e6")
         self.localTimeLabel.place(x=50,y=50)
         self.localDateLabel= Label(self.root, text="",font=("Product Sans", 60),fg="#666666", bg="#e8e8e6")
         self.localDateLabel.place(x=70,y=260)
@@ -36,7 +36,7 @@ class Window ():
         ####Creating the weatherforecast frame
         self.weatherFrame=tk.Frame(self.root, width=700, height=150, borderwidth=1)
         self.weatherFrame.pack()
-        self.weatherFrame.place(x=62,y=665)
+        self.weatherFrame.place(x=40,y=550)
         #self.weatherFrame["background"]= "#f4f4f4"
         ####Creating the weather cards in the  weatherforecast frame
         self.weatheritems=[]
@@ -72,7 +72,7 @@ class weatheritem:
         self.highLabel.place(x=10,y=120)
         self.lowLabel= Label(self.card, text="",font=("Product Sans", 20),fg="#ababab")
         self.lowLabel.place(x=70,y=120)
-        self.dayLabel= Label(self.card, text="",font=("Product Sans", 20),fg="#666666")
+        self.dayLabel= Label(self.card, text="",font=("Product Sans", 15),fg="#666666")
         self.dayLabel.place(x=35,y=0)
         self.bcg_img=ImageTk.PhotoImage(file="Weather/sun.png")
         self.forecast_label= Label(self.card, text="",font=("Product Sans", 10),fg="#ababab")
