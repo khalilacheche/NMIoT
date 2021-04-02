@@ -1,15 +1,21 @@
 import tkinter as tk
-from tkinter import *
 from tkinter.filedialog import *
 from PIL import ImageTk, Image
 from threading import Thread
-
+import os
+import sys
 class Window ():
     def __init__(self):
+        if (os.environ.get('DIPSLAY','') == ''):
+            print('no display found')
+            os.environ.__setitem__('DISPLAY',':0.0')
         self.root = tk.Tk()
+        self.root.title("NMIoT")
         self.app=FullScreenApp(self.root)
+        self.root.tk_setPalette(background="#FFFFFF")
+        self.root.config(cursor="none")
         ####Creating the background
-        background_image=ImageTk.PhotoImage(file="back.jpg")
+        background_image=ImageTk.PhotoImage(Image.open("back.jpg").resize((self.app.width,self.app.height)))
         background_label = tk.Label(self.root, image=background_image)
         background_label.place(x=0, y=0, relwidth=1, relheight=1)
         background_label.image = background_image
@@ -118,9 +124,9 @@ class FullScreenApp:
 
     def __init__(self, master, **kwargs):
         self.master=master
-        width=master.winfo_screenwidth()-self.padding
-        height=master.winfo_screenheight()-self.padding
-        master.geometry(self.dimensions.format(width, height))
+        self.width=master.winfo_screenwidth()-self.padding
+        self.height=master.winfo_screenheight()-self.padding
+        master.geometry(self.dimensions.format(self.width, self.height))
         #b = tk.Button(self.master, text="Press me!", command=lambda: self.pressed())
         #b.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
 

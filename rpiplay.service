@@ -1,0 +1,11 @@
+[Unit]
+Description=RPiPlay launcher
+After=network.target
+
+[Service]
+ExecStart=rpiplay -n "NMIoT" -b auto
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=pi
+
