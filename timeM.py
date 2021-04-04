@@ -16,9 +16,9 @@ class tlManager:
         final =[]
         for t in tl:
             if(timeManip.getETA(t[0])<15):
-                final.append(timeStamp("~" if isApprox else "" +str(timeManip.getETA(t[0]))+"\'",timeManip.getETA(t[0]),tlManager.getTColor(t[0]),t[1]))
+                final.append(timeStamp(("~" if isApprox else "" )+str(timeManip.getETA(t[0]))+"\'",timeManip.getETA(t[0]),tlManager.getTColor(t[0]),t[1]))
             else:
-                final.append(timeStamp("~" if isApprox else "" +t[0].strftime("%H:%M"),timeManip.getETA(t[0]),tlManager.getTColor(t[0]),t[1]))
+                final.append(timeStamp(("~" if isApprox else "" )+t[0].strftime("%H:%M"),timeManip.getETA(t[0]),tlManager.getTColor(t[0]),t[1]))
         return final
 
     @staticmethod
@@ -31,9 +31,9 @@ class tlManager:
     @staticmethod
     def updateTlOffline(tl,lastCheckTime):
         newTl =[]
-        for t in tl:#looping through tl copy
+        for t in tl:#filtering out of date metro times
             timePassed= -timeManip.getETA(lastCheckTime)
-            if(timeManip.getETA(t)>timePassed):
+            if(timeManip.getETA(t[0])>=timePassed):
                 newTl.append(t)
         return newTl
 class timeStamp:

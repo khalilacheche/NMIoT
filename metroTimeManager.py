@@ -60,7 +60,6 @@ class mtm (Thread):
                 lastCheckTime = datetime.now()
                 self.win.updateTimeList(tlManager.formatTl(times,False))
             else :
-                lastCheckTime=datetime.now()
                 times=tlManager.updateTlOffline(times,lastCheckTime)
                 self.win.updateTimeList(tlManager.formatTl(times,True))
             time.sleep(1)
