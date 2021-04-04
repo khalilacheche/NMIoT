@@ -13,9 +13,14 @@ class wtm (Thread):
         self.win = win #keeping a reference to the window object so we can pass info to it
     def run(self):
         while True:
-            response = requests.get(url=self.url)
+            try:
+                r = requests.get(url=self.url)
+                r.raise_for_status()
+                self.win.updateWeatherData(json.loads(r.text)["forecasts"])
+                time.sleep(3600) #Updating the weather every hour
+            except Exception as err:
+                print("couldn't get weather")
+                time.sleep(10) #try again in 10 seconds   
             #with open('res.json','r') as file: #Reading from res.json as placeholder
             #    response=json.load(file)
 
-            self.win.updateWeatherData(json.loads(response.text)["forecasts"])
-            time.sleep(10) #Updating the weather every 10 seconds(for testing)

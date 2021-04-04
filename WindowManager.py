@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import *
 from tkinter.filedialog import *
 from PIL import ImageTk, Image
 from threading import Thread
@@ -9,11 +10,13 @@ class Window ():
         if (os.environ.get('DIPSLAY','') == ''):
             print('no display found')
             os.environ.__setitem__('DISPLAY',':0.0')
+        self.numLabels = 6
         self.root = tk.Tk()
         self.root.title("NMIoT")
         self.app=FullScreenApp(self.root)
         self.root.tk_setPalette(background="#FFFFFF")
         self.root.config(cursor="none")
+        self.arriving_image= ImageTk.PhotoImage(Image.open("arriving.png").resize((70,70)))
         ####Creating the background
         background_image=ImageTk.PhotoImage(Image.open("back.jpg").resize((self.app.width,self.app.height)))
         background_label = tk.Label(self.root, image=background_image)
@@ -29,10 +32,15 @@ class Window ():
         self.localDateLabel= Label(self.root, text="",font=("Product Sans", 60),fg="#666666", bg="#e8e8e6")
         self.localDateLabel.place(x=70,y=260)
         ####Creating the timeList labels
-        self.labels=[]
-        for i in range(0,3):
-            self.labels.append(Label(tlframe, text="",font=("Product Sans", 100)))
-            self.labels[i].pack()
+        self.timeLabels=[]
+        self.directionLabels=[]
+        for i in range(0,self.numLabels):
+            self.timeLabels.append(Label(tlframe, text="",font=("Product Sans", 50)))
+            self.timeLabels[i].grid(row = i, column = 1)
+            self.directionLabels.append(Label(tlframe, text="",font=("Product Sans", 20)))
+            self.directionLabels[i].grid(row = i, column = 0)
+            
+
         ####Creating the weatherforecast frame
         self.weatherFrame=tk.Frame(self.root, width=700, height=150, borderwidth=1)
         self.weatherFrame.pack()
@@ -52,9 +60,13 @@ class Window ():
         self.localTimeLabel.configure(text=time)
         self.localDateLabel.configure(text=date)
     def updateTimeList(self,timeList):
-        
-        for i in range(0,min(len(timeList),3)):
-            self.labels[i].configure(text= timeList[i].value,fg=timeList[i].color)
+        for i in range(0,min(len(timeList),self.numLabels)):
+            self.directionLabels[i].configure(text= timeList[i].direction+": ")
+            if(timeList[i].eta < 1):
+                self.timeLabels[i].configure(text= "",image=self.arriving_image)
+            else:
+                self.timeLabels[i].configure(text=timeList[i].timeStr,fg=timeList[i].color,image = "")
+                
     def updateWeatherData(self,data):
         for i in range(0,min(7,len(data))):
             self.weatheritems[i].updateWeatherItem(data[i])

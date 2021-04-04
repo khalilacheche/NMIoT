@@ -5,7 +5,7 @@ import socket
 import time
 from metroTimeManager import *
 from WindowManager import Window
-
+import json
 from datetimeManager import *
 from timeM import *
 from threading import Thread
@@ -17,31 +17,35 @@ def is_connected(): #Checking for internet connection state
         pass
     return False
 
-def getTimeList():
-    #Sending the request and storing the response in resp object
+def getTimeListJson(times):
     now = datetime.now()
     date = now.strftime("%Y-%m-%d")
     date = date.replace("-","%2F")
     h = now.strftime("%H")
     m = now.strftime("%M")
-    resp = requests.get("https://www.t-l.ch/tl-live-mobile/line_detail.php?jour="+date+"&heure="+h+"&minute="+m+"&id=3377704015495524&line=11821953316814882&id_stop=2533279085549588&id_direction=11821953316814882&lineName=m1", verify=False)
-    soup = BeautifulSoup(resp.text, 'html.parser')
-    tags = soup.find_all('div'); #Getting all the div tags
-    times =[]
-    for tag in tags:
-        attrs = tag.get('class')
-        if str(type(attrs))!= '<class \'NoneType\'>': #Proceeding only with the tags that have the "class" attribute
-            for attr in attrs:
-                if(attr =='time'): #Proceeding only with the tags that have the "time" value in the "class" attribute
-                    contents = tag.contents
-                    isApprox=False;
-                    for content in contents: #Looping through all the
-                        if(content.name == 'img'): #Checking if the provided time is a certain time or just approximative
-                            isApprox = content['src']=="images/vague.png"
-                        if (content.name != 'img' and content != ' '):
-                            times.append((isApprox and "~" or "")+content)
-    return times
-
+    url_flon = "https://tl-apps.t-l.ch/ni-web/api/departures?line=11821953316814882&stop=1970329131941907&wayback=0&date="+date+"%20"+h+":"+m+":00&count=10"
+    url_renens = "https://tl-apps.t-l.ch/ni-web/api/departures?line=11821953316814882&stop=1970329131941907&wayback=1&date="+date+"%20"+h+":"+m+":00&count=10"
+    updated_times = []
+    is_connected = False
+    try:
+        r = requests.get(url_flon)
+        r.raise_for_status()
+        data = r.json()
+        for metro_time in data:
+            dp_time = datetime.fromtimestamp(metro_time["realDepartureTime"]/1000.0)
+            updated_times.append((dp_time,metro_time["destination"]["name"]))
+        r = requests.get(url_renens)
+        r.raise_for_status()
+        data = r.json()
+        for metro_time in data:
+            dp_time = datetime.fromtimestamp(metro_time["realDepartureTime"]/1000.0)
+            updated_times.append((dp_time,metro_time["destination"]["name"]))
+        updated_times= sorted(updated_times, key=lambda t: t[0])
+        is_connected = True
+    except Exception as err:
+        print("Couldn't get metro timetable")
+        updated_times = times
+    return (updated_times,is_connected)      
 
 class mtm (Thread):
     def __init__(self,win):
@@ -49,17 +53,14 @@ class mtm (Thread):
         self.win = win #keeping a reference to the window object so we can pass info to it
     def run(self):
         times=[]
-        lastCheckTime = "";
+        lastCheckTime = datetime.now()
         while True:
-            if is_connected():
-                times=getTimeList()
-                lastCheckTime = datetime.now().strftime("%H:%M")
-                self.win.updateTimeList(tlManager.formatTl(times))
-                time.sleep(5)
+            (times,is_connected) = getTimeListJson(times)
+            if is_connected:
+                lastCheckTime = datetime.now()
+                self.win.updateTimeList(tlManager.formatTl(times,False))
             else :
-                print("offline")
-                if times != []:
-                    times=tlManager.updateTlOffline(times,lastCheckTime)
-                    lastCheckTime=datetime.now().strftime("%H:%M")
-                    self.win.updateTimeList(tlManager.formatTl(times))
-                time.sleep(5)
+                lastCheckTime=datetime.now()
+                times=tlManager.updateTlOffline(times,lastCheckTime)
+                self.win.updateTimeList(tlManager.formatTl(times,True))
+            time.sleep(1)
