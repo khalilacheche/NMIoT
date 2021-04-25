@@ -61,7 +61,7 @@ class Window ():
         self.localDateLabel.configure(text=date)
     def updateTimeList(self,timeList):
         for i in range(0,min(len(timeList),self.numLabels)):
-            self.directionLabels[i].configure(text= timeList[i].direction+": ")
+            self.directionLabels[i].configure(text= timeList[i].destination+": ")
             if(timeList[i].eta < 1):
                 self.timeLabels[i].configure(text= "",image=self.arriving_image)
             else:
@@ -133,14 +133,8 @@ class weatheritem:
 class FullScreenApp:
     padding=3
     dimensions="{0}x{1}+0+0"
-
     def __init__(self, master, **kwargs):
         self.master=master
         self.width=master.winfo_screenwidth()-self.padding
         self.height=master.winfo_screenheight()-self.padding
         master.geometry(self.dimensions.format(self.width, self.height))
-        #b = tk.Button(self.master, text="Press me!", command=lambda: self.pressed())
-        #b.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
-
-    #def pressed(self):
-    #    print("clicked!")

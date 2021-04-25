@@ -1,12 +1,7 @@
-import requests
-from bs4 import BeautifulSoup
-import socket
-import time
 from metroTimeManager import *
 from WindowManager import Window
 from weatherManager import *
 from datetimeManager import *
-from timeM import *
 from RPiPlayM import *
 
 ########### MAIN THREAD #############
