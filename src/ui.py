@@ -26,6 +26,9 @@ class App:
         # Start the UI update loop
         self.update_ui()
         
+        self.root.after(1000, lambda: self.root.wm_attributes('-fullscreen', 'true'))
+
+        
 
 
     def init_app(self):
@@ -45,7 +48,6 @@ class App:
         self.root.geometry(dimensions.format(self.width, self.height))
         self.root.tk_setPalette(background="#FFFFFF")
         self.root.config(cursor="none")
-        self.root.attributes("-fullscreen", True)
 
         background_image=ImageTk.PhotoImage(Image.open("assets/back.jpg").resize((self.width,self.height)))
         background_label = tk.Label(self.root, image=background_image)
@@ -57,13 +59,13 @@ class App:
         ####Creating the frame that will hold the time list
 
         self.last_updated_label = Label(self.root, text="Last updated: ",font=("Product Sans", 15),fg="#666666", bg="white")
-        self.last_updated_label.place(x=1000,y=150)
+        self.last_updated_label.place(x=1000,y=145)
 
-        self.num_rows = 7
+        self.num_rows = 6
 
         tlframe = Frame(self.root,borderwidth=1)
         tlframe.pack()
-        tlframe.place(height=450,width=400,x=850,y=200)
+        tlframe.place(height=450,width=400,x=840,y=220)
         self.tlframe=tlframe
         self.row_items = []
 
@@ -74,9 +76,9 @@ class App:
 
     def init_date_frame(self):
         self.localTimeLabel= Label(self.root, text="",font=("Product Sans", 130),fg="#424242", bg="#e8e8e6")
-        self.localTimeLabel.place(x=50,y=50)
+        self.localTimeLabel.place(x=50,y=20)
         self.localDateLabel= Label(self.root, text="",font=("Product Sans", 60),fg="#666666", bg="#e8e8e6")
-        self.localDateLabel.place(x=70,y=260)
+        self.localDateLabel.place(x=70,y=200)
 
 
     def init_daily_weather_frame(self):
@@ -95,7 +97,7 @@ class App:
         self.current_weather_frame.configure(background="#e8e8e6")
         
         self.current_weather_frame.pack()
-        self.current_weather_frame.place(x=40, y=350)
+        self.current_weather_frame.place(x=40, y=280)
         self.current_weather_card = CurrentWeatherCard(self.current_weather_frame,self.code_map)
 
 
@@ -218,12 +220,12 @@ class TLRowItem(tk.Frame):
         self.img_label.pack(side="left", padx=10)
 
         # Long text label
-        self.line_info_label = tk.Label(self, text="", anchor="w", width=20)
-        self.line_info_label.pack(side="left", fill="x", expand=True, padx=10)
+        self.line_info_label = tk.Label(self, text="", anchor="w", width=15,font=("Product Sans", 15),fg="gray")
+        self.line_info_label.pack(side="left", fill="x", expand=True, padx=1)
 
         # Short text label
         self.eta_label = tk.Label(self, text="", anchor="e", width=30,font=("Product Sans", 30))
-        self.eta_label.pack(side="right", padx=10)
+        self.eta_label.pack(side="right", padx=1)
 
     def getTColor(self,eta,color_scale):
         if(eta> color_scale[1]):

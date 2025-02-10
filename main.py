@@ -23,6 +23,7 @@ def main():
 
     app = App(shared_data=shared_data)
     app.root.mainloop()
+    app.root.after(1000, lambda: app.root.wm_attributes('-fullscreen', 'true'))
 
 
 if __name__ == "__main__":
