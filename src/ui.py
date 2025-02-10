@@ -45,6 +45,7 @@ class App:
         self.root.geometry(dimensions.format(self.width, self.height))
         self.root.tk_setPalette(background="#FFFFFF")
         self.root.config(cursor="none")
+        self.root.attributes("-fullscreen", True)
 
         background_image=ImageTk.PhotoImage(Image.open("assets/back.jpg").resize((self.width,self.height)))
         background_label = tk.Label(self.root, image=background_image)
