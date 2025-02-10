@@ -5,7 +5,7 @@ NMIoT is a device that:
 * tells you weather forecast for the week
 * tells you the metro (m1 in Lausanne) departure times
 * supports iOS devices screen cast via Airplay
-![alt text](https://github.com/khalilacheche/NMIoT/blob/master/outside.png?raw=true)
+![alt text](assets/docs/outside.png)
 
 
 
@@ -30,7 +30,7 @@ For the main components, I used a Raspberry Pi Zero W to run the App, a recycled
 I used a 220V AC -> 12V DC (36W) adapter to power up the driver board and screen, a car adapter (12V DC -> 5V DC) to power up the RPi. I also had to use some heatsinks for the driver board, as it was quickly heating up at "dangerous" temperature
 I cut out a box made of plywood to fit all the components.
 Here's a look on the inside of the device:
-![alt text](https://github.com/khalilacheche/NMIoT/blob/master/inside.png?raw=true)
+![alt text](assets/docs/inside.png)
 
 
 This is a project I initially started in 2019 and was sitting around for quite a while (almost 2 years) due to a lack of tools and hardware. I intend to add some more features in the future.

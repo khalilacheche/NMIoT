@@ -1,0 +1,29 @@
+code,description,image_name
+0,Sunny,sunny.png
+1,Mainly Sunny,sunny.png
+2,Partly Cloudy,partly_cloudy.png
+3,Cloudy,cloudy.png
+45,Foggy,cloudy.png
+48,Rime Fog,cloudy.png
+51,Light Drizzle,cloudy.png
+53,Drizzle,rainy.png
+55,Heavy Drizzle,rainy.png
+56,Light Freezing Drizzle,rainy.png
+57,Freezing Drizzle,rainy.png
+61,Light Rain,rainy.png
+63,Rain,pouring.png
+65,Heavy Rain,pouring.png
+66,Light Freezing Rain,rainy.png
+67,Freezing Rain,rainy.png
+71,Light Snow,snowy.png
+73,Snow,snowy.png
+75,Heavy Snow,snowy.png
+77,Snow Grains,snowy.png
+80,Light Showers,rainy.png
+81,Showers,rainy.png
+82,Heavy Showers,cloudy.png
+85,Light Snow Showers,snowy.png
+86,Snow Showers,snowy.png
+95,Thunderstorm,lightning.png
+96,Light Thunderstorms With Hail,lightning.png
+99,Thunderstorm With Hail,lightning.png

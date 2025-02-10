@@ -1,0 +1,74 @@
+{
+    "B4_Faverges": {
+        "line": "11821953316814865",
+        "stop": "3377704015495487",
+        "name": "4",
+        "stop_name": "Dranse",
+        "direction": "Lausanne, Faverges",
+        "logo_path": "assets/tl/line_logos/4.png",
+        "color_scale": [
+            2,
+            5
+        ],
+        "display_time_cutoff": 20,
+        "eta_cutoff": 0,
+        "logo_size": [
+            50,
+            50
+        ]
+    },
+    "B4_Coudraies": {
+        "line": "11821953316814865",
+        "stop": "3377704015495486",
+        "name": "4",
+        "stop_name": "Dranse",
+        "direction": "Prilly, Coudraies",
+        "logo_path": "assets/tl/line_logos/4.png",
+        "color_scale": [
+            2,
+            5
+        ],
+        "display_time_cutoff": 20,
+        "eta_cutoff": 0,
+        "logo_size": [
+            50,
+            50
+        ]
+    },
+    "B9_Eglise": {
+        "line": "11821953316814886",
+        "stop": "3377704015495758",
+        "name": "9",
+        "stop_name": "Montetan",
+        "direction": "Prilly, Eglise",
+        "logo_path": "assets/tl/line_logos/9.png",
+        "color_scale": [
+            7,
+            12
+        ],
+        "display_time_cutoff": 30,
+        "eta_cutoff": 5,
+        "logo_size": [
+            50,
+            50
+        ]
+    },
+    "B21_Verriere": {
+        "line": "11821953316814856",
+        "stop": "3377704015495225",
+        "name": "21",
+        "stop_name": "Bergières",
+        "direction": "Verrière",
+        "logo_path": "assets/tl/line_logos/21.png",
+        "color_scale": [
+            7,
+            12
+        ],
+        "display_time_cutoff": 30,
+        "eta_cutoff": 5,
+        "logo_size": [
+            50,
+            50
+        ]
+    }
+}
